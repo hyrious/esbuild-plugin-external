@@ -1,0 +1,41 @@
+{
+  "name": "@hyrious/esbuild-plugin-external",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Compute and mark external modules",
+  "author": "hyrious <hyrious@outlook.com>",
+  "license": "MIT",
+  "repository": "hyrious/esbuild-plugin-external",
+  "keywords": [
+    "esbuild",
+    "plugin",
+    "external"
+  ],
+  "exports": {
+    "types": "./index.js",
+    "node": {
+      "types": "./index.js",
+      "require": "./index.cjs",
+      "default": "./index.js"
+    },
+    "default": "./index.js"
+  },
+  "main": "index.js",
+  "types": "index.js",
+  "files": [
+    "lib",
+    "*.js",
+    "*.cjs"
+  ],
+  "scripts": {
+    "build": "rollup index.js -f cjs -o index.cjs"
+  },
+  "peerDependencies": {
+    "esbuild": ">=0.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "esbuild": "^0.23.0",
+    "rollup": "^4.19.0"
+  }
+}
