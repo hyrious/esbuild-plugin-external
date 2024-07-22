@@ -28,7 +28,7 @@
     "*.cjs"
   ],
   "scripts": {
-    "build": "rollup index.js -f cjs -o index.cjs"
+    "build": "rollup lib/cjs-entry.js -f cjs -o index.cjs"
   },
   "peerDependencies": {
     "esbuild": ">=0.21.4"
