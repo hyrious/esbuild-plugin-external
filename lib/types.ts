@@ -32,6 +32,12 @@ export interface ExternalOptions {
   include?: (args: OnLoadArgs) => boolean | null | undefined
 
   /**
+   * In addition to the `filter` option, this can be used to match import paths
+   * to improve the performance. Default is match every import `/()/`.
+   */
+  filterResolve?: RegExp;
+
+  /**
    * Automatically handle some paths if they match the pattern.
    * Under the hood it uses the `onResolve()` callback to handle these paths.
    * Example `[{ filter: /\.js$/ }]`.

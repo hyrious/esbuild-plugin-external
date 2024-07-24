@@ -24,7 +24,13 @@ export function external(options = {}) {
       }
 
       if (options.auto) for (const config of options.auto) {
-        handleAuto(config, onResolve)
+        const replace = config.replace ?? defaultReplace
+
+        onResolve({ filter: config.filter }, args => {
+          if (config.include && !config.include(args)) return;
+          let p = replace(args.path)
+          if (p) return { path: p, external: true, pluginData: args.pluginData };
+        })
       }
 
       if (options.filter) {
@@ -36,7 +42,7 @@ export function external(options = {}) {
           return { contents, loader: 'default', pluginData: { [mark]: true } }
         })
 
-        onResolve({ filter: /()/ }, args => {
+        onResolve({ filter: options.filterResolve ?? /()/ }, args => {
           if (args.pluginData && args.pluginData[mark] && args.with['external'])
             return { path: args.with.external, external: true }
         })
@@ -93,19 +99,10 @@ export function external(options = {}) {
   }
 
   /**
-   * @param {NonNullable<ExternalOptions['auto']>[0]} config
-   * @param {PluginBuild['onResolve']} onResolve
+   * @param {string} path
    */
-  function handleAuto(config, onResolve) {
-    const replace = config.replace ?? function defaultAutoReplace(path) {
-      return path.replace(/^(\.\.\/)+/, './')
-    }
-
-    onResolve({ filter: config.filter }, args => {
-      if (config.include && !config.include(args)) return;
-      let p = replace(args.path)
-      if (p) return { path: p, external: true, pluginData: args.pluginData };
-    })
+  function defaultReplace(path) {
+    return path.replace(/^(\.\.\/)+/, './')
   }
 }
 
