@@ -23,9 +23,9 @@
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
-    "lib",
     "*.js",
-    "*.cjs"
+    "*.cjs",
+    "*.d.ts"
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:types",
