@@ -2,6 +2,12 @@
 
 An esbuild plugin to help you compute and mark external modules manually.
 
+## Features
+
+- Excludes `dependencies` and `peerDependencies` from `package.json`.
+- Adds custom loader `with { external: "./replacement.js" }`.
+- Automatically externalizes imports with pattern matching.
+
 ## Usage
 
 ```js

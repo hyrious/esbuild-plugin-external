@@ -12,28 +12,33 @@
     "external"
   ],
   "exports": {
-    "types": "./index.js",
+    "types": "./index.d.ts",
     "node": {
-      "types": "./index.js",
+      "types": "./index.d.ts",
       "require": "./index.cjs",
       "default": "./index.js"
     },
     "default": "./index.js"
   },
   "main": "index.js",
-  "types": "index.js",
+  "types": "index.d.ts",
   "files": [
     "lib",
     "*.js",
     "*.cjs"
   ],
   "scripts": {
-    "build": "rollup lib/cjs-entry.js -f cjs -o index.cjs"
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:esm": "esbuild index.ts --bundle --format=esm --outdir=. --packages=external",
+    "build:cjs": "rollup lib/cjs-entry.js -f cjs -o index.cjs",
+    "build:types": "dts"
   },
   "peerDependencies": {
     "esbuild": ">=0.21.4"
   },
   "devDependencies": {
+    "@hyrious/configs": "^0.1.3",
+    "@hyrious/dts": "^0.2.6",
     "@types/node": "^20.14.11",
     "esbuild": "^0.23.0",
     "rollup": "^4.19.0"
